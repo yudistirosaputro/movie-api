@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.yudistirosaputro.movieapi.BuildConfig
 import com.yudistirosaputro.movieapi.R
@@ -85,6 +86,7 @@ fun AboutScreen(
                     text = stringResource(R.string.about_tagline),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MovieColors.TextPrimary,
+                    textAlign = TextAlign.Center,
                 )
                 Spacer(Modifier.height(16.dp))
                 HorizontalDivider(color = MovieColors.Divider)
@@ -93,11 +95,13 @@ fun AboutScreen(
                     text = stringResource(R.string.about_tmdb_attribution),
                     style = MaterialTheme.typography.titleMedium,
                     color = MovieColors.TextPrimary,
+                    textAlign = TextAlign.Center,
                 )
                 Text(
                     text = stringResource(R.string.about_data_source),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MovieColors.TextSecondary,
+                    textAlign = TextAlign.Center,
                 )
                 SecondaryButton(
                     text = stringResource(R.string.about_tmdb_link),
