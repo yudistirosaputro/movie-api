@@ -1,0 +1,8 @@
+# N6: a 200 whose body is not valid JSON.
+id: n6-malformed-details
+name: "N6 malformed JSON: movie details"
+match:
+  method: GET
+  path: /3/movie/*
+fail:
+  type: malformed_body

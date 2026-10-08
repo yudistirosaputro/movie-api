@@ -1,0 +1,9 @@
+# N7: a genre with no movies.
+id: n7-empty-discover
+name: "N7 empty: discover"
+match:
+  method: GET
+  path: /3/discover/movie
+respond:
+  status: 200
+  body: '{"page":1,"results":[],"total_pages":0,"total_results":0}'

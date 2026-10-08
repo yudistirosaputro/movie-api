@@ -1,0 +1,9 @@
+# N7: TMDB returns no genres.
+id: n7-empty-genres
+name: "N7 empty: genres"
+match:
+  method: GET
+  path: /3/genre/movie/list
+respond:
+  status: 200
+  body: '{"genres":[]}'

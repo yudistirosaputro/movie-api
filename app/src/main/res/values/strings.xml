@@ -76,7 +76,6 @@
 
     <!-- Reviews -->
     <string name="reviews_title">Reviews</string>
-    <string name="reviews_title_for">Reviews · %1$s</string>
     <string name="reviews_empty_title">No reviews yet</string>
     <string name="reviews_empty_message">Nobody has reviewed this movie on TMDB yet.</string>
     <string name="review_read_more">Read more</string>

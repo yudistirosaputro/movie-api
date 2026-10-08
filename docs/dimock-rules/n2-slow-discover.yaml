@@ -1,0 +1,12 @@
+# N2 (slow): the first discover page answers after 4 s with the real captured body, so the skeleton stays up.
+id: n2-slow-discover
+name: "N2 slow: discover page 1 after 4 s"
+match:
+  method: GET
+  path: /3/discover/movie
+  query: { page: "1" }
+times: 1
+respond:
+  status: 200
+  bodyFile: ../../app/src/test/resources/fixtures/discover_page1.json
+  delayMs: 4000

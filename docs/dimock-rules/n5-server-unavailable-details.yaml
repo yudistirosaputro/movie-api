@@ -1,0 +1,9 @@
+# N5 (503): TMDB maintenance body on movie details.
+id: n5-server-unavailable-details
+name: "N5 503: movie details"
+match:
+  method: GET
+  path: /3/movie/*
+respond:
+  status: 503
+  body: '{"success":false,"status_code":9,"status_message":"Service offline - Try again later."}'

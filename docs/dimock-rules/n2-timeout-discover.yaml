@@ -1,0 +1,11 @@
+# N2 (timeout): one-shot SocketTimeoutException after 3 s; Retry then reaches TMDB again.
+id: n2-timeout-discover
+name: "N2 timeout: discover page 1 times out once"
+match:
+  method: GET
+  path: /3/discover/movie
+  query: { page: "1" }
+times: 1
+fail:
+  type: timeout
+  delayMs: 3000

@@ -1,0 +1,17 @@
+# N7 (reviews) + N8 (no trailer): both side calls of the details screen come back empty.
+- id: n7-empty-reviews
+  name: "N7 empty: reviews"
+  match:
+    method: GET
+    path: /3/movie/*/reviews
+  respond:
+    status: 200
+    body: '{"id":0,"page":1,"results":[],"total_pages":0,"total_results":0}'
+- id: n8-empty-videos
+  name: "N8 no trailer: empty videos"
+  match:
+    method: GET
+    path: /3/movie/*/videos
+  respond:
+    status: 200
+    body: '{"id":0,"results":[]}'

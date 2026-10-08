@@ -1,0 +1,11 @@
+# N10: page 2 fails once with a 500; page 1 stays on screen and the footer Retry loads page 2.
+id: n10-append-failure
+name: "N10 append failure: discover page 2 → 500 once"
+match:
+  method: GET
+  path: /3/discover/movie
+  query: { page: "2" }
+times: 1
+respond:
+  status: 500
+  body: '{"success":false,"status_code":11,"status_message":"Internal error: Something went wrong, contact TMDB."}'

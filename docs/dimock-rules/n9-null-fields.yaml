@@ -1,0 +1,25 @@
+# N9: the nullable fields TMDB really leaves out, all at once.
+- id: n9-null-discover
+  name: "N9 nulls: posters missing on discover"
+  match:
+    method: GET
+    path: /3/discover/movie
+  respond:
+    status: 200
+    bodyFile: bodies/discover_null_posters.json
+- id: n9-null-details
+  name: "N9 nulls: details without images, overview, runtime, date"
+  match:
+    method: GET
+    path: /3/movie/*
+  respond:
+    status: 200
+    bodyFile: bodies/details_nulls.json
+- id: n9-null-reviews
+  name: "N9 nulls: review without avatar or rating"
+  match:
+    method: GET
+    path: /3/movie/*/reviews
+  respond:
+    status: 200
+    bodyFile: bodies/reviews_null_avatar.json

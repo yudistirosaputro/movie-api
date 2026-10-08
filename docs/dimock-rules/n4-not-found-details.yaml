@@ -1,0 +1,9 @@
+# N4: "/3/movie/*" matches the details call only (one segment), not /videos or /reviews.
+id: n4-not-found-details
+name: "N4 404: movie details"
+match:
+  method: GET
+  path: /3/movie/*
+respond:
+  status: 404
+  body: '{"success":false,"status_code":34,"status_message":"The resource you requested could not be found."}'

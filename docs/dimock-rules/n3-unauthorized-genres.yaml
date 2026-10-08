@@ -1,0 +1,9 @@
+# N3: TMDB's real 401 body for a bad key.
+id: n3-unauthorized-genres
+name: "N3 401: genres with TMDB invalid-key body"
+match:
+  method: GET
+  path: /3/genre/movie/list
+respond:
+  status: 401
+  body: '{"success":false,"status_code":7,"status_message":"Invalid API key: You must be granted a valid key."}'

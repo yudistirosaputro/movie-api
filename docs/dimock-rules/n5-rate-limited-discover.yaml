@@ -1,0 +1,10 @@
+# N5 (429): TMDB rate-limit body on the first discover page.
+id: n5-rate-limited-discover
+name: "N5 429: discover page 1"
+match:
+  method: GET
+  path: /3/discover/movie
+  query: { page: "1" }
+respond:
+  status: 429
+  body: '{"success":false,"status_code":25,"status_message":"Your request count (#) is over the allowed limit of (40)."}'
