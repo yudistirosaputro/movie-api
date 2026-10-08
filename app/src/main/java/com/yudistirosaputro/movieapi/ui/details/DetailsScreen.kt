@@ -180,7 +180,7 @@ fun DetailsScreen(
     ) {
         if (uiState is DetailsUiState.Error) {
             ErrorState(error = uiState.error, onRetry = onRetry, onBack = onBack)
-            DetailsTopBar(title = null, titleAlpha = 0f, onBack = onBack)
+            DetailsTopBar(title = null, titleAlpha = 0f, onBack = onBack, showFullscreenToggle = false, onEnterFullscreen = {})
             return@BoxWithConstraints
         }
 
@@ -196,7 +196,15 @@ fun DetailsScreen(
         }
 
         Column(Modifier.fillMaxSize()) {
-            if (!fullscreen) DetailsTopBar(title = title, titleAlpha = titleAlpha, onBack = onBack)
+            if (!fullscreen) {
+                DetailsTopBar(
+                    title = title,
+                    titleAlpha = titleAlpha,
+                    onBack = onBack,
+                    showFullscreenToggle = playerState.videoKey != null && !playerState.hasError,
+                    onEnterFullscreen = { onFullscreenChange(true) },
+                )
+            }
             MediaArea(
                 movieId = details?.id ?: loading?.movieId,
                 imageUrl = details?.let { it.backdropUrl ?: it.posterUrl } ?: loading?.posterUrl,
@@ -232,7 +240,13 @@ fun DetailsScreen(
 }
 
 @Composable
-private fun DetailsTopBar(title: String?, titleAlpha: Float, onBack: () -> Unit) {
+private fun DetailsTopBar(
+    title: String?,
+    titleAlpha: Float,
+    onBack: () -> Unit,
+    showFullscreenToggle: Boolean,
+    onEnterFullscreen: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -240,22 +254,22 @@ private fun DetailsTopBar(title: String?, titleAlpha: Float, onBack: () -> Unit)
             .statusBarsPadding()
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
             .height(DetailsTopBarHeight)
-            .padding(start = 4.dp, end = 16.dp),
+            .padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         BackButton(onClick = onBack)
-        if (title != null) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MovieColors.TextPrimary,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .weight(1f)
-                    .alpha(titleAlpha),
-            )
-        }
+        Text(
+            text = title.orEmpty(),
+            style = MaterialTheme.typography.titleMedium,
+            color = MovieColors.TextPrimary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier
+                .weight(1f)
+                .alpha(titleAlpha),
+        )
+        // Lives in the bar, not on the video, so it never covers the YouTube player's own controls.
+        if (showFullscreenToggle) FullscreenToggle(fullscreen = false, onToggle = onEnterFullscreen)
     }
 }
 
@@ -288,13 +302,16 @@ private fun MediaArea(
                         .fillMaxHeight()
                         .aspectRatio(16f / 9f, matchHeightConstraintsFirst = true),
                 )
-                FullscreenToggle(
-                    fullscreen = playerState.isFullscreen,
-                    onToggle = { onFullscreenChange(!playerState.isFullscreen) },
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(8.dp),
-                )
+                if (playerState.isFullscreen) {
+                    // On a phone held sideways this corner is outside the 16:9 video, clear of its controls.
+                    FullscreenToggle(
+                        fullscreen = true,
+                        onToggle = { onFullscreenChange(false) },
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(8.dp),
+                    )
+                }
             }
             else -> Backdrop(
                 movieId = movieId,
